@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const app = express();
+const dotenv = require("dotenv")
+dotenv.config()
+
 
 app.use(express.json()); //cors
 app.use(cors({ origin: true }));
@@ -17,7 +20,7 @@ app.post("/authenticate", async (req, res, next) => {
         first_name: username,
       },
       {
-        headers: { "private-key": "6ccf4713-9c9f-4a25-a577-9eef55fe4f54" },
+        headers: { "private-key": process.env.chat_engine_api  },
       }
     );
     return res.status(resp.status).json(resp.data);
@@ -25,5 +28,8 @@ app.post("/authenticate", async (req, res, next) => {
     return res.json(error.message);
   }
 });
-
-app.listen(3000);
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
+});

@@ -1,10 +1,12 @@
 import { PrettyChatWindow } from "react-chat-engine-pretty";
+import dotenv from "dotenv"
 
+dotenv.config()
 const ChatsPage = ({ user }) => {
   return (
     <div style={{ height: "100vh" }}>
       <PrettyChatWindow
-        projectId="775418f9-57ee-4abf-a85c-9625c382260f"
+        projectId={process.env.project_id}
         username={user.username}
         secret={user.username}
         style={{ height: "100%" }}
